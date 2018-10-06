@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Lord</string>
+    <string name="shortDescription">يحتوي هاتف انفنكس على شاشة لمس تكاتفية حجمها 5.5 انش ومزودة بتقنية اي بي اس</string>
+    <string name="title_activity_login">LoginActivity</string>
+</resources>

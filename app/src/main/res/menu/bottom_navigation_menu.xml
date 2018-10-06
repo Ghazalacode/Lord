@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/ic_other"
+        android:icon="@drawable/ic_other"
+        android:title="المزيد">
+    </item>
+
+
+    <item
+        android:id="@+id/ic_notification"
+        android:icon="@drawable/ic_notification"
+        android:title="اشعارات">
+    </item>
+
+    <item
+        android:id="@+id/ic_ticket"
+        android:icon="@drawable/ic_ticket"
+        android:title="عروض">
+    </item>
+
+    <item
+        android:id="@+id/ic_shopping"
+        android:icon="@drawable/ic_shopping"
+        android:title="طلباتي">
+    </item>
+
+    <item
+        android:id="@+id/ic_home"
+        android:icon="@drawable/ic_home"
+        android:title="الرئيسية">
+    </item>
+</menu>

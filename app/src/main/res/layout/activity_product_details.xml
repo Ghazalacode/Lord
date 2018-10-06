@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.hossam.lord.ProductDetails"
+    android:background="@color/whitegrey">
+
+ <include android:id="@+id/header"
+     layout="@layout/header_product_details"
+     android:layout_width="match_parent"
+     android:layout_height="0dp"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintTop_toTopOf="parent"
+/>
+
+
+ <include
+     android:id="@+id/productName"
+     layout="@layout/layout_product_name_product_details"
+     android:layout_width="match_parent"
+     android:layout_height="0dp"
+     app:layout_constraintHeight_percent="0.07"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/header" />
+
+ <ImageView
+     android:id="@+id/star"
+     android:layout_width="353dp"
+     android:layout_height="0dp"
+     app:layout_constraintHeight_percent="0.25"
+     android:layout_marginEnd="8dp"
+     android:layout_marginStart="8dp"
+     android:layout_marginTop="8dp"
+     app:layout_constraintEnd_toEndOf="parent"
+
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/productName"
+     app:srcCompat="@drawable/star_orange" />
+
+
+
+ <include
+     android:id="@+id/product_purchas"
+     layout="@layout/layout_product_purchase_product_details"
+     android:layout_width="match_parent"
+     android:layout_height="99dp"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintHeight_percent="0.07"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/star" />
+
+ <include
+     android:id="@+id/product_info"
+     layout="@layout/layout_product_info_product_details"
+     android:layout_width="match_parent"
+     android:layout_height="0dp"
+     android:layout_marginTop="20dp"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintHeight_percent="0.07"
+     app:layout_constraintHorizontal_bias="0.0"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/product_purchas" />
+
+ <include
+     android:id="@+id/product_description"
+     layout="@layout/layout_product_description_info_product_details"
+     android:layout_width="match_parent"
+     android:layout_height="0dp"
+     android:layout_marginTop="10dp"
+     app:layout_constraintHeight_percent="0.15"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/product_info" />
+
+ <include
+     android:id="@+id/store_info"
+     layout="@layout/layout_store_info_product_details"
+     android:layout_width="match_parent"
+     android:layout_height="61dp"
+     android:layout_marginTop="10dp"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintHeight_percent="0.07"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/product_description" />
+
+ <android.support.v7.widget.AppCompatButton
+     android:id="@+id/textView4"
+     android:layout_width="156dp"
+     android:layout_marginTop="10dp"
+     android:layout_marginBottom="8dp"
+     android:layout_marginStart="8dp"
+    android:drawableEnd="@drawable/down_arrow"
+     android:background="@drawable/orange_rounded_background"
+     android:maxLines="1"
+     android:text=" شحن مجاني من المتجر  "
+     android:textColor="@color/colorPrimaryDark"
+     android:textSize="12sp"
+     android:textStyle="bold"
+     android:layout_height="0dp"
+     app:layout_constraintHeight_percent="0.07"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/store_info"
+     app:layout_constraintVertical_bias="0.0"
+     android:layout_marginLeft="8dp"
+     android:drawableRight="@drawable/down_arrow" />
+
+</android.support.constraint.ConstraintLayout>
