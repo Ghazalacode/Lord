@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+android:layout_marginBottom="10dp"
+    android:background="@drawable/white_background_square_padding"
+    android:layout_marginEnd="3dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+   >
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="اسم الشركة : مؤسسة ابن خلدون للتجارة والمقاولات"
+        android:textColor="@color/darkblue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center"
+
+        android:textSize="11sp"
+        />
+
+</android.support.constraint.ConstraintLayout>
