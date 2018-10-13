@@ -14,5 +14,6 @@
     <color name="orange">#CC7722</color>
     <color name="gold">#f4cd2a</color>
     <color name="darkblue">#1D337D</color>
+    <color name="greyBackground">#eaebf0</color>
 
 </resources>

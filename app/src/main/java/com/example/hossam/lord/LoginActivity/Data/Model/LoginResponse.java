@@ -6,100 +6,55 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 public class LoginResponse implements Serializable {
-    @SerializedName("user")
-    User UserObject;
-    @SerializedName("token")
-    private String token;
 
-    public LoginResponse(User userObject, String token) {
-        UserObject = userObject;
-        this.token = token;
+    @SerializedName("id")
+    private Integer id;
+    @SerializedName("company_id")
+    private Integer company_id;
+    @SerializedName("username")
+    private String username;
+    @SerializedName("pwd")
+    private String password;
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "LoginResponse{" +
-                "UserObject=" + UserObject +
-                ", token='" + token + '\'' +
-                '}';
+    public void setCompany_id(Integer company_id) {
+        this.company_id = company_id;
     }
 
-// Getter Methods
-
-    public User getUser() {
-        return UserObject;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getToken() {
-        return token;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    // Setter Methods
+    public Integer getId() {
+        return id;
 
-    public void setUser(User userObject) {
-        this.UserObject = userObject;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public Integer getCompany_id() {
+        return company_id;
     }
 
-
-    public class User implements Serializable{
-
-        @SerializedName("username")
-        private String username;
-        @SerializedName("created")
-        private String created;
-        @SerializedName("modified")
-        private String modified;
-        @SerializedName("id")
-        private Long id;
-
-        public User(String username, String created, String modified, Long id) {
-            this.username = username;
-            this.created = created;
-            this.modified = modified;
-            this.id = id;
-        }
-
-        // Getter Methods
-
-        public String getUsername() {
-            return username;
-        }
-
-        public String getCreated() {
-            return created;
-        }
-
-        public String getModified() {
-            return modified;
-        }
-
-        public float getId() {
-            return id;
-        }
-
-        // Setter Methods
-
-        public void setUsername(String username) {
-            this.username = username;
-        }
-
-        public void setCreated(String created) {
-            this.created = created;
-        }
-
-        public void setModified(String modified) {
-            this.modified = modified;
-        }
-
-        public void setId(Long id) {
-            this.id = id;
-        }
+    public String getUsername() {
+        return username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public LoginResponse(Integer id, Integer company_id, String username, String password) {
+        this.id = id;
+        this.company_id = company_id;
+        this.username = username;
+        this.password = password;
+    }
 }
 
 

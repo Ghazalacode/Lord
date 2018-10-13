@@ -11,6 +11,8 @@ import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,38 +28,41 @@ public class LoginRepository {
 
     //…
      MutableLiveData<String> data = new MutableLiveData<>();
-    public LiveData<String> userlogin(String username, String password) {
-
-
-
+     String token ="", error  ="" ;
+    public  void   userlogin(String username, String password , final MutableLiveData<String> token) {
 
         networkApiClient =  RetrofitClient.getClient(NetworkApi.BASE_API_URL).create(NetworkApi.class);
-        networkApiClient.userLogin(username, password).enqueue(new Callback<LoginResponse>() {
+        networkApiClient.userLogin(username, password).enqueue(new Callback<LoginResponse[]>() {
              @Override
-             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+             public void onResponse(Call<LoginResponse[]> call, Response<LoginResponse[]> response) {
 
 
                  if (response.isSuccessful()) {
                      Log.d("d", "onResponse: "+response.body().toString());
+                     LoginResponse[] user =response.body();
+                     token.postValue(user[0].getCompany_id().toString());
                  } else {
                      Log.d("d", "onResponse: "+response.code());}
 
 
-               data.postValue(response.body().getToken());
+            //   data.postValue(response.body().getToken());
                 // Log.d("", "onResponse() called with: call = [" + call + "], response = [" + response + "]");
              }
 
              @Override
-             public void onFailure(Call<LoginResponse> call, Throwable t) {
+             public void onFailure(Call<LoginResponse[]> call, Throwable t) {
                  Log.d("failure", "onFailure() called with: call = [" + call + "], t = [" + t + "]");
-                    data.postValue(t.getMessage());
+                 //   data.postValue(t.getMessage());
+
+                 error = t.getMessage();
+                 token.postValue(error);
              }
          }
 
 
         );
-    if (data == null){data .setValue("76868");
-                            return data; }
-       else { return data;}
+/*    if (token == ""){data .setValue("76868");
+                            return error; }
+       else { return token;}*/
     }
 }
