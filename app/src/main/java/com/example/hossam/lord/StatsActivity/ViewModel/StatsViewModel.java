@@ -16,6 +16,18 @@ public class StatsViewModel extends ViewModel {
 
     StatsRepository repository;
 
+    public ArrayList<ActivitiesModel> getData() {
+        return data;
+    }
+
+    ArrayList<ActivitiesModel> data = new ArrayList<ActivitiesModel>();
+
+    public MutableLiveData<String> getErrorLD() {
+        return errorLD;
+    }
+
+    final MutableLiveData<String> errorLD ;
+
     public MutableLiveData<ArrayList< ArrayList<String>>> getResponse() {
         return response;
     }
@@ -28,6 +40,7 @@ public class StatsViewModel extends ViewModel {
 
         response = new MutableLiveData<>();
 
+        errorLD = new MutableLiveData<>() ;
 
         ArrayList<ActivitiesModel> data = new ArrayList<ActivitiesModel>();
         data.add(new ActivitiesModel( ""));
@@ -38,7 +51,7 @@ public class StatsViewModel extends ViewModel {
     public ArrayList<ActivitiesModel> getRecyclerData() {
 
 
-        ArrayList<ActivitiesModel> data = new ArrayList<ActivitiesModel>();
+
         data.add(new ActivitiesModel( "عدد عمليات البيع"));
         data.add(new ActivitiesModel( "قيمة المبيعات"));
         data.add(new ActivitiesModel( "عدد عمليات الشراء"));
@@ -62,7 +75,7 @@ return data;
         if (dateFrom.isEmpty()){ dateFrom = null;  }
         if (dateTo .isEmpty()){ dateTo = null;  }
         if (activity .isEmpty()){ activity = null;  }
-        repository.getCompanyActivities(company ,activity, branch,dateFrom,dateTo,response );
+        repository.getCompanyActivities(company ,activity, branch,dateFrom,dateTo,response ,errorLD);
     }
 
 

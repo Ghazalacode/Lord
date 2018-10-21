@@ -20,9 +20,9 @@ public class ActivitiesRecyclerAdapter extends RecyclerView.Adapter<ActivitiesRe
 
     private Context mContext;
     private LayoutInflater mInflater;
-    private MutableLiveData<ArrayList<ActivitiesModel>> mData;
+    private ArrayList<String> mData;
 
-    public ActivitiesRecyclerAdapter(Context mContext, MutableLiveData<ArrayList<ActivitiesModel>> mData) {
+    public ActivitiesRecyclerAdapter(Context mContext, ArrayList<String> mData) {
         this.mInflater = LayoutInflater.from(mContext);
         this.mContext = mContext;
         this.mData = mData;
@@ -42,7 +42,7 @@ public class ActivitiesRecyclerAdapter extends RecyclerView.Adapter<ActivitiesRe
 
     @Override
     public void onBindViewHolder(@NonNull ProfileViewHolder holder, int position) {
-        String title = mData.getValue().get(position).getTitle();
+        String title = mData.get(position);
         holder.tvTitle.setText(title);
 
 
@@ -52,7 +52,7 @@ public class ActivitiesRecyclerAdapter extends RecyclerView.Adapter<ActivitiesRe
     // total number of rows
     @Override
     public int getItemCount() {
-        return mData.getValue().size();
+        return mData.size();
     }
      class ProfileViewHolder extends RecyclerView.ViewHolder {
 

@@ -6,6 +6,7 @@ import android.arch.lifecycle.LifecycleRegistry;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.*;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,19 +19,32 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.hossam.lord.CompanyActivitiesActivity.View.CompanyActivitiesActivity;
 import com.example.hossam.lord.LoginActivity.ViewModel.LoginViewModel;
 import com.example.hossam.lord.R;
+import com.example.hossam.lord.Utils.LocaleUtils;
 import com.example.hossam.lord.Utils.StringUtils;
 import com.example.hossam.lord.databinding.ActivityLoginBinding;
 
+import java.util.ArrayList;
+
+import okhttp3.Route;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-
+//TODO handle error messages returning from login
 public class LoginActivity extends AppCompatActivity implements LifecycleOwner {
     private static final String TAG ="LoginActivity" ;
+
+    String comID = "" ,comName = "" ;
+    ArrayList<String> activities  ;
     private LoginViewModel loginViewModel;
 
     private  LifecycleRegistry mLifecycleRegistry ;
+
+    public LoginActivity() {
+
+        LocaleUtils.updateConfig(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +97,17 @@ public class LoginActivity extends AppCompatActivity implements LifecycleOwner {
 
             }
         });
-
-        loginViewModel.getToken().observe(LoginActivity.this, new Observer<String>() {
+        binding.tvAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(LoginActivity.this, AboutActivity.class);
+                finish();
+                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+                startActivity(i);
+            }
+        });
+        activities=new ArrayList<>();
+        loginViewModel.geterror().observe(LoginActivity.this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 Log.d(TAG, "onChanged() called with: s = [" + s + "]");
@@ -93,29 +116,40 @@ public class LoginActivity extends AppCompatActivity implements LifecycleOwner {
             }
         });
 
-/*binding.btnLogin.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-String username = binding.etUsername.getText().toString();
-String password = binding.etPassword.getText().toString();
+        loginViewModel.getComID().observe(LoginActivity.this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                String[] parts = s.split("/");
+                comID = parts[0];
+               comName = parts[1];
 
-if ( validate(username , password) == 3 ){
-    Log.d(TAG, "onClick() called with: validate =3 [" + username + "]");*/
+            }
+        });
 
-/*}
-else if (validate(username , password) == 3){
-    // TODO set error for et and show snackbar
-    Toast.makeText(LoginActivity.this, "Invalid Username value",
-            Toast.LENGTH_LONG).show();
-}
+        loginViewModel.getResponse().observe(LoginActivity.this, new Observer<ArrayList<String>>() {
+            @Override
+            public void onChanged(@Nullable ArrayList<String> activitiesLD) {
+                activities = activitiesLD;
 
+                if (comID.isEmpty()==false && activities.size()!=0){
+                    Intent i=new Intent(LoginActivity.this, CompanyActivitiesActivity.class);
+                    i.putStringArrayListExtra("activities", activities);
+                    i.putExtra("comID", comID);
+                    i.putExtra("comName", comName);
+                    startActivity(i);
 
+                }
+            }
+        });
 
-    }
-});*/
-
-
-    }
+        loginViewModel.getToast().observe(LoginActivity.this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                Toast.makeText(LoginActivity.this, s,
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+ }
 
     private int validate(String username, String password) {
 //// might add some other validation

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
+import android.support.multidex.MultiDexApplication;
 import android.util.DisplayMetrics;
 
 import com.example.hossam.lord.Utils.LocaleUtils;
@@ -14,7 +15,7 @@ import java.util.Locale;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MyCustomApplication extends Application {
+public class MyCustomApplication extends MultiDexApplication /*instead of Application*/{
         // Called when the application is starting, before any other application objects have been created.
         // Overriding this method is totally optional!
 		private Locale locale = null;

@@ -8,13 +8,16 @@ import com.example.hossam.lord.LoginActivity.Data.Model.LoginResponse;
 import com.example.hossam.lord.LoginActivity.Data.Network.NetworkApi;
 import com.example.hossam.lord.LoginActivity.Data.Network.RetrofitClient;
 import com.example.hossam.lord.StatsActivity.Data.Model.ActivitiesResponse;
-import com.example.hossam.lord.StatsActivity.Data.Model.ActivitiesResponseMain;
+
 import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -34,13 +37,17 @@ public class StatsRepository {
      String token ="", error  ="" ;
     public  void   getCompanyActivities(String company, String activity ,
                                         String branch, String dateFrom ,String dateTo
-            ,final MutableLiveData<ArrayList< ArrayList<String>>> responseLD ) {
+            ,final MutableLiveData<ArrayList< ArrayList<String>>> responseLD , final MutableLiveData<String> errorLD) {
 
         networkApiClient =  RetrofitClient.getClient(NetworkApi.BASE_API_URL).create(NetworkApi.class);
         networkApiClient.getCompanyActivities(company, activity, branch, dateFrom, dateTo).enqueue(new Callback<ArrayList<ActivitiesResponse>>() {
             @Override
             public void onResponse(Call<ArrayList<ActivitiesResponse>> call, Response<ArrayList<ActivitiesResponse>> response) {
                 if (response.isSuccessful()) {
+                    if( response.body().size()==0 ){ errorLD.postValue("لا توجد بيانات بالفلاتر المختارة");
+                    Log.e( ":statsrepo ","لا توجد بيانات بالفلاتر المختارة" );
+                        return;
+                    }
 // TODO post arraylist of arraylist of data ordered based on recycler order
  // TODO observe in activity when updated uupdate list
  //TODO on recycler item  selcted get arraylist from arraylist with the clicked index
@@ -57,6 +64,7 @@ public class StatsRepository {
                     ArrayList<String> emp_worst = new ArrayList<>();
                     ArrayList<String> branch = new ArrayList<>();
                     ArrayList<String> dates = new ArrayList<>();
+
                     ArrayList< ArrayList<String>> fullRespone = new ArrayList<>();
 
 
@@ -74,9 +82,21 @@ public class StatsRepository {
                         emp_most    .add(response.body().get(i).getEmp_most());
                         emp_worst  .add(response.body().get(i).getEmp_worst());
                         branch     .add(String.valueOf(response.body().get(i).getBranch()));
-                        dates     .add(String.valueOf(response.body().get(i).getDate()));
+
+                        String date  = response.body().get(i).getDate();
+                        dates     .add(date.substring(0, date.indexOf(":")-2));
+                        Log.e( "modified date: ",date.substring(0, date.indexOf(":")-2) );
+
 
                     }
+                    // remove duplicate value from branches
+
+                    Set<String> hs = new LinkedHashSet<>();
+                    hs.addAll(branch);
+                    branch.clear();
+                    branch.addAll(hs);
+                    Log.e( "branch: ",branch.toString() );
+
                     fullRespone.add(0,saleNo    );
                     fullRespone.add(1,saleVal   );
                     fullRespone.add(2,purchNo   );
@@ -90,7 +110,7 @@ public class StatsRepository {
                     fullRespone.add(10,emp_worst );
                     fullRespone.add(11,branch    );
                     fullRespone.add(12,dates    );
-                    for (int i = 0; i <fullRespone.size() ; i++) {
+                    for (int i = 0; i <7 ; i++) {
                         fullRespone.get(i).removeAll(Arrays.asList(null,""));
                     }
 
